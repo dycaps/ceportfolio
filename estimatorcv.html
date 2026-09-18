@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dylan Andre P. Capuno — Structural Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #F5F0E8;
+      --charcoal: #1C1C1E;
+      --steel: #242B35;
+      --rust: #C0392B;
+      --warm-gray: #686868;
+      --section-gap: 120px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--charcoal); font-family: 'DM Sans', sans-serif; font-weight: 400; overflow-x: hidden; }
+
+    /* PAGE SYSTEM */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── NAV (main page) ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 60px;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(28,28,30,0.08);
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--charcoal); text-decoration: none; cursor: pointer; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--charcoal); text-decoration: none; opacity: 0.9; font-weight: 500; transition: opacity 0.2s; cursor: pointer; }
+    .nav-links a:hover { opacity: 1; }
+
+    /* ── HERO ── */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 100px 60px 60px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: var(--charcoal); z-index: 0; }
+    .hero-text { position: relative; z-index: 1; padding-bottom: 20px; }
+    .hero-eyebrow { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--rust); margin-bottom: 24px; display: block; font-weight: 500; }
+    .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(72px, 9vw, 130px); line-height: 0.92; letter-spacing: 2px; color: var(--charcoal); }
+    .hero-name em { font-family: 'Bebas Neue', sans-serif; font-style: normal; color: var(--rust); }
+    .hero-desc { margin-top: 36px; max-width: 420px; font-size: 16px; line-height: 1.8; color: var(--steel); font-weight: 400; }
+    .hero-cta { margin-top: 48px; display: inline-block; padding: 14px 36px; border: 1.5px solid var(--charcoal); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--charcoal); text-decoration: none; cursor: pointer; transition: background 0.25s, color 0.25s; font-weight: 500; }
+    .hero-cta:hover { background: var(--charcoal); color: var(--cream); cursor: pointer; }
+    .hero-cta-group { display: flex; flex-wrap: wrap; gap: 16px; }
+    .hero-cta-group .hero-cta { margin-top: 0; }
+    .hero-cta-rust { border-color: var(--rust); background: var(--rust); color: var(--cream); }
+    .hero-cta-rust:hover { background: transparent; color: var(--rust); cursor: pointer; }
+    .hero-visual { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; color: var(--cream); }
+    .hero-photo-placeholder { width: 100%; max-width: 380px; aspect-ratio: 3/4; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: block; overflow: hidden; line-height: 0; }
+    .hero-photo-placeholder img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; }
+
+    /* ── SECTION HEADER ── */
+    .section-header { display: flex; align-items: baseline; gap: 24px; margin-bottom: 64px; }
+    .section-num { font-family: 'Bebas Neue', sans-serif; font-size: 15px; color: var(--rust); letter-spacing: 2px; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 72px); letter-spacing: 2px; line-height: 1; }
+    .section-rule { flex: 1; height: 1px; background: var(--charcoal); opacity: 0.15; margin-bottom: 4px; }
+
+    /* ── ABOUT ── */
+    .about { padding: var(--section-gap) 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .about-body { grid-column: 1 / -1; }
+    .about-body .section-header { margin-bottom: 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; }
+    .about-text { font-size: 17px; line-height: 1.9; color: var(--steel); font-weight: 400; }
+    .about-text p + p { margin-top: 20px; }
+    .skills-list { list-style: none; }
+    .skill-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(28,28,30,0.1); font-size: 15px; letter-spacing: 1px; color: var(--steel); font-weight: 400; }
+    .skill-tag { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--rust); background: rgba(192,57,43,0.08); padding: 4px 10px; font-weight: 500; }
+
+    /* ── PROJECTS ── */
+    .projects { padding: var(--section-gap) 60px; background: var(--charcoal); color: var(--cream); }
+    .projects .section-title { color: var(--cream); }
+    .projects .section-rule { background: var(--cream); }
+    .projects-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 64px; }
+    .project-card { 
+      position: relative; 
+      aspect-ratio: 3/4; 
+      overflow: hidden; 
+      cursor: pointer; 
+      background: #2a2a2c;
+      border: 1px solid rgba(245, 240, 232, 0.12);
+    }
+    .project-card img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform 0.5s ease; }
+    .project-card:hover img { transform: scale(1.05); }
+    
+    .project-overlay { 
+      position: absolute; 
+      bottom: 0; 
+      left: 0; 
+      right: 0; 
+      background: linear-gradient(180deg, rgba(15, 15, 17, 0) 0%, rgba(15, 15, 17, 0.699) 35%, rgba(15, 15, 17, 0.98) 100%); 
+      padding: 50px 28px 28px; 
+      transform: translateY(60px); 
+      transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); 
+    }
+    .project-card:hover .project-overlay { transform: translateY(0); }
+
+    .project-type { 
+      font-size: 11px; 
+      letter-spacing: 3px; 
+      text-transform: uppercase; 
+      color: #ff6b6b; 
+      font-weight: 600; 
+      background: rgba(0, 0, 0, 0.55); 
+      padding: 4px 10px; 
+      border-radius: 4px; 
+      display: inline-block; 
+      margin-bottom: 8px; 
+      backdrop-filter: blur(4px);
+    }
+
+    .project-name { font-family: 'DM Serif Display', serif; font-size: 23px; color: var(--cream); margin-bottom: 10px; line-height: 1.3; }
+    .project-meta { font-size: 13px; color: rgba(245,240,232,0.65); letter-spacing: 1px; }
+    .project-arrow { margin-top: 20px; display: inline-block; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--cream); border-bottom: 1px solid var(--rust); padding-bottom: 2px; }
+
+    /* ── EXPERIENCE ── */
+    .experience { padding: var(--section-gap) 60px; }
+    .experience-list { margin-top: 64px; }
+    .exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 40px; padding: 40px 0; border-top: 1px solid rgba(28,28,30,0.12); }
+    .exp-year { font-family: 'Bebas Neue', sans-serif; font-size: 19px; letter-spacing: 2px; color: var(--rust); padding-top: 4px; }
+    .exp-role { font-family: 'DM Serif Display', serif; font-size: 25px; margin-bottom: 6px; }
+    .exp-company { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 16px; font-weight: 500; }
+    .exp-desc { font-size: 15px; line-height: 1.8; color: var(--steel); max-width: 620px; text-align: justify; font-weight: 400; }
+
+    /* ── CREDENTIALS ── */
+    .credentials { padding: var(--section-gap) 60px; background: var(--charcoal); color: var(--cream); }
+    .credentials .section-title { color: var(--cream); }
+    .credentials .section-rule { background: var(--cream); }
+    .credentials-wrapper { max-width: 700px; }
+    .cred-group + .cred-group { margin-top: 40px; }
+    .cred-group-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--rust); margin-bottom: 20px; font-weight: 500; }
+    .cred-item { padding: 20px 0; border-bottom: 1px solid rgba(245,240,232,0.08); }
+    .cred-name { font-family: 'DM Serif Display', serif; font-size: 19px; margin-bottom: 4px; }
+    .cred-body { font-size: 14px; color: rgba(245,240,232,0.65); letter-spacing: 1px; }
+
+    /* ── CONTACT ── */
+    .contact { padding: var(--section-gap) 60px; text-align: center; position: relative; overflow: hidden; }
+    .contact-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Bebas Neue', sans-serif; font-size: clamp(100px, 20vw, 280px); letter-spacing: 10px; color: rgba(28,28,30,0.04); white-space: nowrap; pointer-events: none; user-select: none; }
+    .contact-label { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--rust); margin-bottom: 24px; font-weight: 500; }
+    .contact-heading { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 7vw, 100px); letter-spacing: 3px; line-height: 1; margin-bottom: 48px; }
+    .contact-email { font-family: 'DM Serif Display', serif; font-style: italic; font-size: clamp(22px, 3.2vw, 34px); color: var(--charcoal); text-decoration: none; border-bottom: 2px solid var(--rust); padding-bottom: 4px; transition: color 0.2s; }
+    .contact-email:hover { color: var(--rust); }
+    .contact-socials { margin-top: 64px; display: flex; justify-content: center; gap: 40px; }
+    .contact-socials a { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--charcoal); text-decoration: none; opacity: 0.7; font-weight: 500; transition: opacity 0.2s; }
+    .contact-socials a:hover { opacity: 1; }
+
+    /* ── FOOTER ── */
+    footer { padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(28,28,30,0.1); font-size: 13px; color: var(--warm-gray); letter-spacing: 1px; font-weight: 400; }
+
+    /* ════════ DETAIL PAGE STYLES ════════ */
+    .detail-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 60px;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(28,28,30,0.08);
+    }
+    .detail-back { display: flex; align-items: center; gap: 12px; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--charcoal); cursor: pointer; opacity: 0.85; font-weight: 500; transition: opacity 0.2s; }
+    .detail-back:hover { opacity: 1; }
+    .detail-back:hover svg { transform: translateX(-4px); }
+    .detail-back svg { transition: transform 0.2s; }
+
+    .detail-hero { min-height: 80vh; background: var(--charcoal); display: grid; grid-template-columns: 1fr 1fr; align-items: end; padding: 140px 60px 80px; position: relative; overflow: hidden; }
+    .detail-hero-pattern { position: absolute; inset: 0; opacity: 0.035; background-image: repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(245,240,232,1) 39px,rgba(245,240,232,1) 40px), repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(245,240,232,1) 39px,rgba(245,240,232,1) 40px); }
+    .detail-hero-content { position: relative; z-index: 1; }
+    .detail-hero-type { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--rust); margin-bottom: 20px; display: block; font-weight: 500; }
+    .detail-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px,7vw,100px); line-height: 0.95; letter-spacing: 2px; color: var(--cream); }
+    .detail-hero-title em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--rust); }
+    .detail-hero-meta { position: relative; z-index: 1; }
+    .detail-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .detail-meta-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(245,240,232,0.5); margin-bottom: 8px; font-weight: 500; }
+    .detail-meta-value { font-family: 'DM Serif Display', serif; font-size: 21px; color: var(--cream); }
+
+    .detail-body { padding: 100px 60px; }
+    .detail-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 100px; }
+    .detail-intro-heading { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px,4vw,56px); letter-spacing: 2px; line-height: 1.05; }
+    .detail-intro-heading em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--rust); }
+    .detail-intro-text { font-size: 17px; line-height: 1.9; color: var(--steel); padding-top: 8px; font-weight: 400; }
+    .detail-intro-text p + p { margin-top: 20px; }
+
+    /* GALLERY */
+    .detail-gallery { margin-bottom: 0; }
+    .gallery-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--rust); margin-bottom: 24px; font-weight: 500; }
+    .gallery-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2px; }
+    .gallery-item { 
+      background: var(--charcoal); 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      overflow: hidden; 
+      position: relative; 
+      border: 1px solid rgba(245, 240, 232, 0.15); 
+      cursor: pointer;
+    }
+    .gallery-item:first-child { grid-row: span 2; min-height: 440px; height: 100%; }
+    .gallery-item:not(:first-child) { aspect-ratio: 4/3; height: 100%; }
+    .gallery-item img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      object-position: center; 
+      display: block; 
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(28, 28, 30, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      color: var(--cream);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .gallery-item:hover .gallery-hover-overlay { opacity: 1; }
+
+    /* LIGHTBOX MODAL */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background-color: rgba(20, 20, 22, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 40px 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .image-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-content {
+      max-width: 90vw;
+      max-height: 80vh;
+      object-fit: contain;
+      border: 1px solid rgba(245, 240, 232, 0.2);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      background: #111;
+    }
+    .modal-caption {
+      margin-top: 20px;
+      color: var(--cream);
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .modal-close {
+      position: absolute;
+      top: 24px;
+      right: 36px;
+      color: var(--cream);
+      font-size: 36px;
+      font-weight: 300;
+      cursor: pointer;
+      transition: color 0.2s;
+      line-height: 1;
+      user-select: none;
+    }
+    .modal-close:hover { color: var(--rust); }
+
+    .detail-specs { background: var(--charcoal); padding: 80px 60px; }
+    .detail-specs .section-title { color: var(--cream); }
+    .detail-specs .section-rule { background: var(--cream); }
+    .specs-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 64px; }
+    .spec-block { background: rgba(255,255,255,0.03); border: 1px solid rgba(245,240,232,0.06); padding: 40px 32px; }
+    .spec-icon { margin-bottom: 24px; font-size: 28px; opacity: 0.6; }
+    .spec-value { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--cream); line-height: 1; margin-bottom: 8px; }
+    .spec-unit { font-size: 15px; color: var(--rust); letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+    .spec-desc { margin-top: 16px; font-size: 14px; color: rgba(245,240,232,0.6); letter-spacing: 1px; line-height: 1.6; }
+
+    .detail-next { background: var(--charcoal); padding: 80px 60px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.3s; }
+    .detail-next:hover { background: #111113; }
+    .detail-next-label { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: rgba(245,240,232,0.5); margin-bottom: 12px; font-weight: 500; }
+    .detail-next-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px,5vw,64px); color: var(--cream); letter-spacing: 2px; }
+    .detail-next-arrow { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--rust); transition: transform 0.3s; }
+    .detail-next:hover .detail-next-arrow { transform: translateX(12px); }
+
+    /* ════════ CV / RESUME PAGE ════════ */
+    .cv-body { padding-top: 100px; }
+    .cv-page-wrap { max-width: 1500px; margin: 0 auto; padding: 60px 60px 140px; }
+    .cv-header { text-align: center; margin-bottom: 88px; }
+    .cv-header .hero-eyebrow { text-align: center; }
+    .cv-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 68px); letter-spacing: 3px; color: var(--charcoal); margin-top: 12px; }
+    .cv-contact { margin-top: 18px; font-size: 16px; letter-spacing: 0.5px; color: var(--steel); font-weight: 400; }
+    .cv-contact a { color: var(--rust); text-decoration: underline; text-decoration-color: rgba(192,57,43,0.5); text-underline-offset: 3px; }
+    .cv-contact a:hover { text-decoration-color: var(--rust); }
+    .cv-print-btn { display: inline-block; margin-top: 32px; }
+
+    .cv-section { margin-bottom: 80px; }
+    .cv-body .section-header { margin-bottom: 40px; }
+    .cv-body .section-title { font-size: clamp(26px, 3vw, 36px); }
+
+    .cv-job { padding: 28px 0; border-top: 1px solid rgba(28,28,30,0.12); }
+    .cv-job:first-child { border-top: none; padding-top: 0; }
+    .cv-job-row { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px 24px; }
+    .cv-job-row + .cv-job-row { margin-top: 4px; }
+    .cv-job-company { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--charcoal); }
+    .cv-job-location { font-size: 13.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--steel); font-weight: 500; }
+    .cv-job-role { font-style: italic; font-size: 16.5px; color: var(--rust); letter-spacing: 0.3px; font-weight: 500; }
+    .cv-job-date { font-size: 14px; letter-spacing: 1px; color: var(--steel); font-style: italic; font-weight: 500; }
+    
+    .cv-job-bullets { list-style: none; margin-top: 16px; max-width: 82%; }
+    .cv-job-bullets li { position: relative; padding-left: 20px; font-size: 16.5px; line-height: 1.85; color: var(--steel); margin-bottom: 10px; text-align: justify; font-weight: 400; }
+    .cv-job-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--rust); }
+    .cv-job-bullets strong { color: var(--charcoal); font-weight: 600; }
+    .cv-link { color: var(--rust); text-decoration: underline; text-decoration-color: rgba(192,57,43,0.5); text-underline-offset: 3px; }
+    .cv-link:hover { text-decoration-color: var(--rust); }
+
+    .cv-skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px 60px; margin-top: 8px; }
+    .cv-skill-group-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--rust); margin-bottom: 16px; font-weight: 500; }
+    .cv-skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    
+    .cv-skill-chip { 
+      font-size: 16px; 
+      letter-spacing: 0.3px; 
+      padding: 8px 16px; 
+      border: 1px solid rgba(28,28,30,0.22); 
+      color: var(--steel); 
+      background: transparent;
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 400;
+    }
+    .cv-skill-chip:hover {
+      background: var(--rust);
+      color: var(--cream);
+      border-color: var(--rust);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(192, 57, 43, 0.22);
+    }
+
+    @media print {
+      nav, .detail-nav, .cv-print-btn, footer { display: none !important; }
+      body { background: #fff; }
+      .cv-body { padding-top: 0; }
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav, .detail-nav { padding: 20px 28px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 120px 28px 60px; }
+      .hero::before { display: none; }
+      .hero-visual { color: var(--charcoal); padding: 0; margin-top: 40px; }
+      .about, .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about { padding: 80px 28px; }
+      .projects { padding: 80px 28px; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .experience { padding: 80px 28px; }
+      .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .credentials { padding: 80px 28px; }
+      .contact { padding: 80px 28px; }
+      footer { padding: 24px 28px; flex-direction: column; gap: 12px; text-align: center; }
+      .detail-hero { grid-template-columns: 1fr; padding: 120px 28px 60px; }
+      .detail-hero-meta { margin-top: 40px; }
+      .detail-body { padding: 60px 28px; }
+      .detail-intro { grid-template-columns: 1fr; gap: 40px; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:first-child { grid-row: span 1; }
+      .specs-grid { grid-template-columns: 1fr 1fr; }
+      .detail-specs { padding: 60px 28px; }
+      .detail-next { padding: 60px 28px; }
+      .cv-page-wrap { padding: 40px 24px 100px; }
+      .cv-job-row { flex-direction: column; align-items: flex-start; gap: 2px; }
+      .cv-job-bullets { max-width: 100%; }
+      .cv-job-bullets li { text-align: left; }
+      .cv-skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MAIN PAGE -->
+<div id="page-main" class="page active">
+
+  <nav>
+    <span class="nav-logo" onclick="goHome()">Dylan Andre P. Capuno / SE</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a onclick="showPage('page-cv'); window.scrollTo(0,0);">Résumé</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text fade-up">
+      <span class="hero-eyebrow">Structural Engineer · Quantity Surveyor</span>
+      <h1 class="hero-name">Dylan<br><em>Andre P.</em><br>Capuno</h1>
+      <p class="hero-desc">
+        Engineering structures built for strength, accuracy, and efficiency. Specializing in structural design, quantity takeoffs, cost estimation, and construction planning for residential to high-rise buildings, bridges, and other complex projects.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#projects" class="hero-cta">View My Works</a>
+        <span class="hero-cta hero-cta-rust" onclick="showPage('page-cv'); window.scrollTo(0,0);">View Résumé</span>
+      </div>
+    </div>
+    <div class="hero-visual fade-up" style="transition-delay:0.2s">
+      <div class="hero-photo-placeholder">
+        <img src="grad.jpg" alt="Dylan Andre P. Capuno">
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-body">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">About Me</h2>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p>I'm a licensed civil engineer with a strong foundation in structural engineering, quantity estimation, and construction documentation. I specialize in structural design, quantity takeoffs, BOQ preparation, and cost estimation for residential, commercial, and infrastructure projects.</p>
+        <p>My approach combines engineering principles with attention to detail, ensuring that every project is designed with safety, accuracy, efficiency, and constructability in mind. From structural analysis and design to detailed quantity takeoffs and estimates, I focus on delivering reliable results that support both sound engineering decisions and effective project planning.</p>
+        <p>Based in the Philippines, I bring a practical understanding of structural engineering and construction processes, with experience working with technical drawings, structural plans, quantity measurements, and project documentation.</p>
+      </div>
+      <div class="fade-up" style="transition-delay:0.15s">
+        <ul class="skills-list">
+          <li class="skill-item">Structural Analysis & Design <span class="skill-tag">Core</span></li>
+          <li class="skill-item">Estimator / Quantity Surveying / Quantity Takeoff <span class="skill-tag">Specialist</span></li>
+          <li class="skill-item">STAAD.Pro / ETABS / MidasGen NX <span class="skill-tag">Software</span></li>
+          <li class="skill-item">Planswift & Bluebeam <span class="skill-tag">Estimates</span></li>
+          <li class="skill-item">AutoCAD & Microsoft Applications <span class="skill-tag">Core</span></li>
+          <li class="skill-item">Steel & Reinforced Concrete <span class="skill-tag">Materials</span></li>
+          <li class="skill-item">ACI / AISC Compliance <span class="skill-tag">Code</span></li>
+          <li class="skill-item">Construction Management <span class="skill-tag">PM</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Selected Works</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card fade-up" onclick="openProject('p1')">
+        <img src="Project1/kuhncover.jpg" alt="Kuhn's Addition">
+        <div class="project-overlay">
+          <div class="project-type">Residential · Addition</div>
+          <div class="project-name">Kuhn&#39;s Addition</div>
+          <div class="project-meta">2,884 SF · LP SmartSide · 2026</div>
+          <div class="project-arrow">View Project →</div>
+        </div>
+      </div>
+
+      <div class="project-card fade-up" style="transition-delay:0.1s" onclick="openProject('p2')">
+        <img src="Project2/schulzcover.png" alt="Schulz Residence">
+        <div class="project-overlay">
+          <div class="project-type">Residential · Custom Home</div>
+          <div class="project-name">Schulz Residence</div>
+          <div class="project-meta">3,895 SF · CemPanel &amp; MiraTec · 2026</div>
+          <div class="project-arrow">View Project →</div>
+        </div>
+      </div>
+
+      <div class="project-card fade-up" style="transition-delay:0.2s" onclick="openProject('p3')">
+        <img src="Project3/vermontcover.png" alt="Vermont Right House">
+        <div class="project-overlay">
+          <div class="project-type">Residential · Urban Dwelling</div>
+          <div class="project-name">Vermont Right House</div>
+          <div class="project-meta">3,236 SF · Cemplank &amp; LP · 2026</div>
+          <div class="project-arrow">View Project →</div>
+        </div>
+      </div>
+
+      <div class="project-card fade-up" style="transition-delay:0.3s" onclick="openProject('p4')">
+        <img src="Project4/barncover.png" alt="Miller Barn">
+        <div class="project-overlay">
+          <div class="project-type">Agricultural · Barn</div>
+          <div class="project-name">Miller Barn</div>
+          <div class="project-meta">10,977 SF · Board &amp; Batten · 2026</div>
+          <div class="project-arrow">View Project →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="experience" id="experience">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="experience-list">
+      <div class="exp-item fade-up">
+        <div class="exp-year">January 2026 — Present</div>
+        <div>
+          <div class="exp-role">Junior Structural Engineer</div>
+          <div class="exp-company">Abinales Associates Engineers + Consultants</div>
+          <div class="exp-desc">Performed advanced structural analysis, structural assessment, retrofit and design of concrete and steel structures using STAAD Pro, ETABS, MIDAS, Tekla Structural Designer, SAP2000, ensuring compliance with local and international structural code standards.</div>
+        </div>
+      </div>
+      <div class="exp-item fade-up">
+        <div class="exp-year">June 2026 — Present</div>
+        <div>
+          <div class="exp-role">Quantity Surveyor / Estimator</div>
+          <div class="exp-company">Freelance Estimator</div>
+          <div class="exp-desc">Self-study of calculating comprehensive material, labor, and equipment takeoffs to create Detailed Unit Price Analysis (DUPA), Bills of Quantities (BOQ), and Bills of Materials (BOM) for bidding proposals and budget baseline with the use of software such as Microsoft Excel, Bluebeam and Planswift.</div>
+        </div>
+      </div>
+      <div class="exp-item fade-up">
+        <div class="exp-year">January 2026 — Present</div>
+        <div>
+          <div class="exp-role">Freelance Structural Engineer</div>
+          <div class="exp-company">Freelance Designer</div>
+          <div class="exp-desc">Completed structural engineering projects of multiple scopes such as detailed engineering design of various structures, structural evaluation/assessment, retrofit design, and construction support.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS -->
+  <section class="credentials">
+    <div class="credentials-wrapper">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Credentials</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="cred-group">
+        <div class="cred-group-label">Licenses & Certifications</div>
+        <div class="cred-item"><div class="cred-name">Registered Civil Engineer</div><div class="cred-body">PRC · License No. 0227548 · 2025</div></div>
+        <div class="cred-item"><div class="cred-name">PICE Member</div><div class="cred-body">Philippine Institute of Civil Engineers</div></div>
+      </div>
+      <div class="cred-group">
+        <div class="cred-group-label">Education</div>
+        <div class="cred-item">
+          <div class="cred-name">De La Salle University</div>
+          <div class="cred-body">
+            B.S. Civil Engineering · Graduated April 2025<br>
+            <a href="https://www.credly.com/badges/4a9b29f7-1a07-4843-a762-49f8e0c90881/public_url" target="_blank" rel="noopener noreferrer" style="color: var(--rust); text-decoration: underline; text-underline-offset: 3px; display: inline-block; margin-top: 6px;">ABET Accredited</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-bg-text">BUILD</div>
+    <p class="contact-label">05 · Let's Collaborate</p>
+    <h2 class="contact-heading">Start a<br>Conversation</h2>
+    <a href="mailto:dylanandrecapuno@gmail.com" class="contact-email" target="_blank" rel="noopener noreferrer">dylanandrecapuno@gmail.com</a>
+    <div class="contact-socials">
+      <a href="http://www.linkedin.com/in/dylan-andre-capuno-840b5b31a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://wa.me/639178189482" target="_blank" rel="noopener noreferrer">Whatsapp</a>
+      <a href="https://www.upwork.com/freelancers/~01eb435f808fe04caa?mp_source=share" target="_blank" rel="noopener noreferrer">Upwork</a>
+      <a href="https://www.facebook.com/dylanandre.capuno/" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Dylan Andre P. Capuno. All rights reserved.</span>
+    <span>Structural Engineer & Estimator · Philippines</span>
+  </footer>
+
+</div>
+
+<!-- PROJECT DETAIL PAGE -->
+<div id="page-detail" class="page">
+  <nav class="detail-nav">
+    <span class="detail-back" onclick="goBack()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Works
+    </span>
+    <span class="nav-logo" onclick="goHome()">Dylan Andre P. Capuno / SE</span>
+  </nav>
+
+  <div class="detail-hero">
+    <div class="detail-hero-pattern"></div>
+    <div class="detail-hero-content">
+      <span class="detail-hero-type" id="d-type"></span>
+      <h1 class="detail-hero-title" id="d-title"></h1>
+    </div>
+    <div class="detail-hero-meta">
+      <div class="detail-meta-grid" id="d-meta"></div>
+    </div>
+  </div>
+
+  <div class="detail-body">
+    <div class="detail-intro">
+      <div class="detail-intro-heading" id="d-heading"></div>
+      <div class="detail-intro-text" id="d-text"></div>
+    </div>
+    <div class="detail-gallery">
+      <div class="gallery-label">Project Gallery (Click photo for full view)</div>
+      <div class="gallery-grid" id="d-gallery">
+        <!-- Rendered dynamically by openProject() -->
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-specs">
+    <div class="section-header"><span class="section-num">—</span><h2 class="section-title">Structural Specs</h2><div class="section-rule"></div></div>
+    <div class="specs-grid" id="d-specs"></div>
+  </div>
+
+  <div class="detail-next" id="d-next">
+    <div>
+      <div class="detail-next-label">Next Project</div>
+      <div class="detail-next-title" id="d-next-title"></div>
+    </div>
+    <div class="detail-next-arrow">→</div>
+  </div>
+</div>
+
+<!-- RESUME / CV PAGE -->
+<div id="page-cv" class="page">
+  <nav class="detail-nav">
+    <span class="detail-back" onclick="goHome()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Portfolio
+    </span>
+    <span class="nav-logo" onclick="goHome()">Dylan Andre P. Capuno / SE</span>
+  </nav>
+
+  <div class="cv-body">
+    <div class="cv-page-wrap">
+      <div class="cv-header">
+        <span class="hero-eyebrow">Curriculum Vitae</span>
+        <h1 class="cv-name">Dylan Andre P. Capuno</h1>
+        <p class="cv-contact">
+          Buting, Pasig, NCR, Philippines &nbsp;·&nbsp;
+          <a href="http://www.linkedin.com/in/dylan-andre-capuno-840b5b31a" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+          <a href="mailto:dylanandrecapuno@gmail.com" target="_blank" rel="noopener noreferrer">dylanandrecapuno@gmail.com</a> &nbsp;·&nbsp;
+          <a href="tel:+639178189482">0917 818 9482</a>
+        </p>
+        <span class="cv-print-btn hero-cta" onclick="window.print()">Download / Print</span>
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div class="cv-section">
+        <div class="section-header"><span class="section-num">01</span><h2 class="section-title">Experience</h2><div class="section-rule"></div></div>
+
+        <div class="cv-job">
+          <div class="cv-job-row"><span class="cv-job-company">Abinales Associates Engineers + Consultants</span><span class="cv-job-location">Pasig City, NCR</span></div>
+          <div class="cv-job-row"><span class="cv-job-role">Structural Engineer</span><span class="cv-job-date">January 2026 – Present</span></div>
+          <ul class="cv-job-bullets">
+            <li>Performed advanced structural analysis, structural assessment, retrofit and design of concrete and steel structures using <strong>STAAD Pro, ETABS, MIDAS, Tekla Structural Designer, SAP2000</strong>, ensuring compliance with local and international structural code standards.</li>
+            <li>Prepared drawings and design calculations using <strong>Microsoft Excel, AutoCAD/ZWCAD, Revit</strong>.</li>
+            <li>Applied structural engineering judgement to validate modeling assumptions, reducing potential clashes and constructability issues, and consider value engineering.</li>
+            <li>Lead site inspections on projects to ensure structural construction adhered to approved design specifications and proactively resolve constructability issues in the field.</li>
+            <li>Created cost-estimates and project schedule for project proposals using <strong>Microsoft Excel, Bluebeam, Planswift, Primavera P6, and Microsoft Project</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="cv-job">
+          <div class="cv-job-row"><span class="cv-job-company">Padilla Review Center</span><span class="cv-job-location">Manila, NCR</span></div>
+          <div class="cv-job-row"><span class="cv-job-role">Part-Time Review Instructor</span><span class="cv-job-date">December 2025 – Present</span></div>
+          <ul class="cv-job-bullets">
+            <li>Taught civil engineering subjects such as Mathematics, Hydraulics and Fluid Mechanics, Soil Mechanics and Geotechnical Engineering, and mostly Reinforced Concrete Design, Steel Design, Strength of Materials, and Theory of Structures to undergraduate civil engineers preparing for the board examination.</li>
+          </ul>
+        </div>
+
+        <div class="cv-job">
+          <div class="cv-job-row"><span class="cv-job-company">Freelance Structural Engineer</span><span class="cv-job-location"></span></div>
+          <div class="cv-job-row"><span class="cv-job-role">Structural Engineer</span><span class="cv-job-date">November 2025 – Present</span></div>
+          <ul class="cv-job-bullets">
+            <li>Completed structural engineering projects of multiple scopes such as detailed engineering design of various structures, structural evaluation/assessment, retrofit design, and construction support.</li>
+            <li>Managed the structural design process, including technical detailing, preparation of permit-ready structural plans and consolidation of all pertinent engineering documentations.</li>
+          </ul>
+        </div>
+
+        <div class="cv-job">
+          <div class="cv-job-row"><span class="cv-job-company">Freelance Quantity Surveyor</span><span class="cv-job-location">Makati, NCR</span></div>
+          <div class="cv-job-row"><span class="cv-job-role">Quantity Surveyor</span><span class="cv-job-date">June 2026 – Present</span></div>
+          <ul class="cv-job-bullets">
+            <li>Self-study of calculating comprehensive material, labor, and equipment takeoffs to create Detailed Unit Price Analysis (DUPA), Bills of Quantities (BOQ), and Bills of Materials (BOM) for bidding proposals and budget baseline with the use of software such as Microsoft Excel, Bluebeam and Planswift.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="cv-section">
+        <div class="section-header"><span class="section-num">02</span><h2 class="section-title">Education</h2><div class="section-rule"></div></div>
+        <div class="cv-job">
+          <div class="cv-job-row"><span class="cv-job-company">De La Salle University</span><span class="cv-job-location">Manila City, NCR</span></div>
+          <div class="cv-job-row"><span class="cv-job-role">B.S. Civil Engineering, Specialization in Transportation Engineering</span><span class="cv-job-date">Graduated April 2025</span></div>
+          <ul class="cv-job-bullets"><li><a href="https://www.credly.com/badges/4a9b29f7-1a07-4843-a762-49f8e0c90881/public_url" target="_blank" rel="noopener noreferrer" class="cv-link">ABET Accredited</a></li></ul>
+        </div>
+      </div>
+
+      <!-- PROFESSIONAL AFFILIATION -->
+      <div class="cv-section">
+        <div class="section-header"><span class="section-num">03</span><h2 class="section-title">Affiliation</h2><div class="section-rule"></div></div>
+        <div class="cv-job" style="border-top:none; padding-top:0;">
+          <div class="cv-job-row"><span class="cv-job-company">Professional Regulatory Commission (PRC)</span><span class="cv-job-date">Registered Civil Engineer, PRC No. 0227548</span></div>
+        </div>
+      </div>
+
+      <!-- SKILLS -->
+      <div class="cv-section" style="margin-bottom:0;">
+        <div class="section-header"><span class="section-num">04</span><h2 class="section-title">Skills</h2><div class="section-rule"></div></div>
+        <div class="cv-skills-grid">
+          <div class="cv-skill-group">
+            <div class="cv-skill-group-label">Software Capability</div>
+            <div class="cv-skill-tags">
+              <span class="cv-skill-chip">Bluebeam Revu</span><span class="cv-skill-chip">Planswift</span><span class="cv-skill-chip">Asdip</span>
+              <span class="cv-skill-chip">STAAD Pro</span><span class="cv-skill-chip">ETABS</span><span class="cv-skill-chip">Tekla Structural Designer</span><span class="cv-skill-chip">STAAD Foundation Advanced</span>
+              <span class="cv-skill-chip">MIDAS Gen</span><span class="cv-skill-chip">MIDAS Civil</span><span class="cv-skill-chip">MIDAS Design+</span>
+              <span class="cv-skill-chip">AutoCAD</span><span class="cv-skill-chip">ZWCAD</span><span class="cv-skill-chip">Revit</span><span class="cv-skill-chip">SketchUp</span><span class="cv-skill-chip">RCDC</span>
+              <span class="cv-skill-chip">SAP2000</span><span class="cv-skill-chip">IdeaStatica</span><span class="cv-skill-chip">ProtaStructure</span>
+              <span class="cv-skill-chip">Visual Basic for Applications</span><span class="cv-skill-chip">Microsoft Applications</span>
+            </div>
+          </div>
+          <div class="cv-skill-group">
+            <div class="cv-skill-group-label">Type of Structures</div>
+            <div class="cv-skill-tags">
+              <span class="cv-skill-chip">Residential</span><span class="cv-skill-chip">Office</span><span class="cv-skill-chip">Commercial</span>
+              <span class="cv-skill-chip">Industrial</span><span class="cv-skill-chip">Institutional</span>
+              <span class="cv-skill-chip">Warehouse</span><span class="cv-skill-chip">Mixed-Use</span><span class="cv-skill-chip">Storages</span>
+              <span class="cv-skill-chip">Low-Rise to Mid-Rise</span><span class="cv-skill-chip">Earth Retaining Structures</span>
+              <span class="cv-skill-chip">Steel Towers</span><span class="cv-skill-chip">Billboards</span>
+            </div>
+          </div>
+          <div class="cv-skill-group">
+            <div class="cv-skill-group-label">Type of Design and Analysis</div>
+            <div class="cv-skill-tags">
+              <span class="cv-skill-chip">Seismic Design</span><span class="cv-skill-chip">Pushover Analysis</span><span class="cv-skill-chip">Structural Assessment</span><span class="cv-skill-chip">Retrofit Design</span>
+              <span class="cv-skill-chip">Performance Based Design</span><span class="cv-skill-chip">Structural Health Monitoring</span><span class="cv-skill-chip">Value Engineering</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX MODAL -->
+<div id="image-modal" class="image-modal" onclick="closeImagePreview(event)">
+  <span class="modal-close" onclick="closeImagePreview(event)">&times;</span>
+  <img class="modal-content" id="modal-img" alt="Photo Preview">
+  <div id="modal-caption" class="modal-caption"></div>
+</div>
+
+<script>
+const PROJECTS = {
+  p1: {
+    id: 'p1', next: 'p2',
+    type: 'RESIDENTIAL · ADDITION',
+    title: 'KUHNS<br><em>ADDITION,</em><br>IDAHO',
+    titlePlain: 'KUHNS ADDITION',
+    images: [
+      'Project1/kuhn4.png',
+      'Project1/kuhn1.png',
+      'Project1/kuhn2.png',
+      'Project1/kuhn3.png',
+      'Project1/kuhn5.png'
+    ],
+    meta: [
+      { l: 'Storeys',  v: '2' },
+      { l: 'Location', v: 'IDAHO' },
+      { l: 'Year',     v: '2026' },
+    ],
+    heading: 'A SEAMLESS EXTENSION <em>engineered</em> with MODERN PRECISION',
+    text: `<p>A comprehensive residential expansion project, combining LP SmartSide lap siding, structural board-and-batten accents, wrapped timber beams/columns, and 24-inch soffit overhangs.</p>`,
+    specs: [
+  { icon: '📦', v: '2,884', u: 'CLADDING & LID (SF)', d: 'Combined LP Lap, B&B, and Patio Lid' },
+  { icon: '📐', v: '24&#8243;', u: 'SOFFIT OVERHANG', d: 'LP SmartSide vented & non-vented width' },
+  { icon: '🏛️', v: '16', u: 'BEAM/COLUMN WRAPS', d: '3/8&#8243;x12&#8243; LP Textured Smart Siding enclosures' },
+  { icon: '↔️', v: '78', u: 'BATTEN STRIPS', d: '4/4x2 Smart Trim vertical batten pieces' }
+]
+  },
+  p2: {
+    id: 'p2', next: 'p3',
+    type: 'Residential · Custom Home',
+    title: 'Schulz<br><em>Residence</em>',
+    titlePlain: 'Schulz Residence',
+    images: [
+      'Project2/schulz5.png',
+      'Project2/schulz1.png',
+      'Project2/schulz2.png',
+      'Project2/schulz3.png',
+      'Project2/schulz4.png'
+    ],
+    meta: [
+      { l: 'Location', v: 'Meridian, ID' },
+      { l: 'System',   v: 'CemPanel & MiraTec' },
+      { l: 'Year',     v: '2026' },
+    ],
+    heading: 'A CUSTOM ESTATE <em>refined</em> with TIMELESS CRAFTSMANSHIP',
+    text: `<p>An expansive single-story custom home featuring a boat garage and covered outdoor patio, detailed with 3,100+ SF of CemPanel Board & Batten siding, integrated wainscoting, and wrapped structural columns.</p>`,
+    specs: [
+  { icon: '📦', v: '3,895', u: 'FIELD & LID (SF)', d: '3,106 SF B&B field + 789 SF patio ceiling lid' },
+  { icon: '↔️', v: '3,387&#8242;', u: 'BATTEN TRIMS (LF)', d: '4/4x2 MiraTec vertical trim detailing' },
+  { icon: '🏛️', v: '404&#8242;', u: 'COLUMN WRAPS (LF)', d: '1/2&#8243;x12&#8243; TruWood textured column & beam wraps' },
+  { icon: '🛥️', v: '818', u: 'BOAT GARAGE (SF)', d: 'High-clearance dedicated garage bay' }
+]
+  },
+  p3: {
+    id: 'p3', next: 'p4',
+    type: 'Residential · Urban Dwelling',
+    title: 'Vermont<br><em>Right House</em>',
+    titlePlain: 'Vermont Right House',
+    images: [
+      'Project3/vermont1.png',
+      'Project3/vermont2.png',
+      'Project3/vermont3.png',
+      'Project3/vermont4.png',
+      'Project3/vermont5.png'
+    ],
+    meta: [
+      { l: 'Location', v: 'Vermont Ave' },
+      { l: 'System',   v: 'Cemplank & LP' },
+      { l: 'Year',     v: '2026' },
+    ],
+    heading: 'A CONTEMPORARY DWELLING <em>tailored</em> for URBAN ELEGANCE',
+    text: `<p>A modern two-story narrow-lot residence built by Cook Bros, highlighting almost 3,000 SF of Cemplank lap siding, gable board-and-batten accents, stacked wainscot trim, and heavy roughsawn fir gable corbels.</p>`,
+    specs: [
+  { icon: '📦', v: '3,236', u: 'TOTAL SIDING (SF)', d: '2,963 SF Cemplank Lap + 274 SF Gable B&B' },
+  { icon: '🏢', v: '2', u: 'STOREYS', d: 'Compact 2-story residential frame' },
+  { icon: '📐', v: '12&#8243;', u: 'EAVE OVERHANG', d: 'Perimeter eave overhang with LP soffits' },
+  { icon: '🔩', v: '1', u: 'FIR CORBEL', d: '6x8 Roughsawn Fir timber corbel feature' }
+]
+  },
+  p4: {
+    id: 'p4', next: 'p1',
+    type: 'Agricultural · Barn',
+    title: 'Miller<br><em>Barn</em>',
+    titlePlain: 'Miller Barn',
+    images: [
+      'Project4/barn1.png',
+      'Project4/barn2.png',
+      'Project4/barn3.png',
+      'Project4/barn4.png',
+      'Project4/barn5.png'
+    ],
+    meta: [
+      { l: 'Location', v: 'Idaho' },
+      { l: 'System',   v: 'Board & Batten' },
+      { l: 'Year',       v: '2026' },
+    ],
+    heading: 'AN AGRICULTURAL HAVEN <em>crafted</em> for MAXIMUM SCALE',
+    text: `<p>A massive timber and panel barn structure built for Solitude Homes, featuring over 9,000 sq. ft. of Board & Batten siding, rugged Cemplank lap siding, and custom roughsawn fir wagon wheel accents.</p>`,
+    specs: [
+  { icon: '📦', v: '10,977', u: 'TOTAL SIDING (SF)', d: '9,166 SF B&B + 1,811 SF Lap Siding' },
+  { icon: '↔️', v: '4,762&#8242;', u: 'BATTEN TRIMS (LF)', d: '4/4x2 MiraTec vertical batten detailing' },
+  { icon: '☸️', v: '9', u: 'WAGON WHEELS', d: '8x12 Roughsawn Fir timber features' },
+  { icon: '🔩', v: '4', u: 'FIR CORBELS', d: '4x4-12&#8242; Roughsawn Fir accents' }
+]
+  }
+};
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goHome() {
+  showPage('page-main');
+  setTimeout(initFadeUps, 100);
+}
+
+function goBack() {
+  showPage('page-main');
+  setTimeout(() => {
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  }, 200);
+}
+
+function openProject(id) {
+  const p = PROJECTS[id];
+  document.getElementById('d-type').textContent = p.type;
+  document.getElementById('d-title').innerHTML = p.title;
+  document.getElementById('d-heading').innerHTML = p.heading;
+  document.getElementById('d-text').innerHTML = p.text;
+
+  if (p.images && p.images.length > 0) {
+    document.getElementById('d-gallery').innerHTML = p.images.map((imgSrc, index) =>
+      `<div class="gallery-item" onclick="openImagePreview('${imgSrc}', '${p.titlePlain} — View ${index + 1}')">
+        <img src="${imgSrc}" alt="${p.titlePlain}">
+        <div class="gallery-hover-overlay">🔍 Preview</div>
+       </div>`
+    ).join('');
+  }
+
+  document.getElementById('d-meta').innerHTML = p.meta.map(m =>
+    `<div><div class="detail-meta-label">${m.l}</div><div class="detail-meta-value">${m.v}</div></div>`
+  ).join('');
+  document.getElementById('d-specs').innerHTML = p.specs.map(s =>
+    `<div class="spec-block"><div class="spec-icon">${s.icon}</div><div class="spec-value">${s.v}</div><div class="spec-unit">${s.u}</div><div class="spec-desc">${s.d}</div></div>`
+  ).join('');
+  document.getElementById('d-next-title').textContent = PROJECTS[p.next].titlePlain;
+  document.getElementById('d-next').onclick = () => openProject(p.next);
+  showPage('page-detail');
+}
+
+/* ── LIGHTBOX PREVIEW FUNCTIONS ── */
+function openImagePreview(src, caption) {
+  const modal = document.getElementById('image-modal');
+  const modalImg = document.getElementById('modal-img');
+  const modalCap = document.getElementById('modal-caption');
+  
+  modalImg.src = src;
+  modalCap.textContent = caption || '';
+  modal.classList.add('active');
+}
+
+function closeImagePreview(e) {
+  if (e.target.id === 'image-modal' || e.target.classList.contains('modal-close')) {
+    const modal = document.getElementById('image-modal');
+    modal.classList.remove('active');
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.getElementById('image-modal').classList.remove('active');
+  }
+});
+
+function initFadeUps() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('#page-main .fade-up').forEach(el => {
+    el.classList.remove('visible');
+    obs.observe(el);
+  });
+}
+
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hero .fade-up').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 200 + i * 150);
+  });
+  initFadeUps();
+});
+</script>
+</body>
+</html>
